@@ -32,7 +32,16 @@ class DetailVC: UIViewController{
         
         if let passedImageDir = imageDir {
             
-            imageLabel.image = UIImage(named: passedImageDir)
+            
+            if let originalImage = UIImage(named: passedImageDir) {
+                
+                if let imageView = imageLabel {
+                    let resizedImage = originalImage.resized(to: imageView.bounds.size)
+                    imageView.image = resizedImage
+                }
+            }
+            
+
         }
         
         
@@ -40,3 +49,16 @@ class DetailVC: UIViewController{
     }
     
 }
+
+
+
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, self.scale)
+        self.draw(in: CGRect(origin: .zero, size: size))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
+    }
+}
+
