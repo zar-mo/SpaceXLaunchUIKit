@@ -36,6 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             detailVC.descript = projects[indexPath.row].description
             detailVC.name = projects[indexPath.row].name
+            detailVC.imageDir = projects[indexPath.row].imageDir
             
             navigationController?.pushViewController(detailVC, animated: true)
         }
@@ -59,7 +60,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let date = createDate(year: 2023, month: 8, day: 23, hour: 12, minute: 34, second: 4, timeZoneIdentifier: "America/Chicago")
         let description = "The Falcon 9, developed by SpaceX, is a reusable rocket designed to cut spaceflight costs by landing and reusing its first stage. It supports satellite and crewed missions."
         
-        let launch = Launch(name: "Falcon 9", description: description, launchTime: date, status: .success)
+        let launch = Launch(name: "Falcon 9", description: description, launchTime: date, status: .success, imageDir: "spacex1.jpg")
         
         for _ in 0..<10 {
             projects.append(launch)

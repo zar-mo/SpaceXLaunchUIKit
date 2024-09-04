@@ -19,4 +19,5 @@ struct Launch {
     let description: String
     let launchTime: Date
     let status: LaunchStatus
+    let imageDir: String?
 }

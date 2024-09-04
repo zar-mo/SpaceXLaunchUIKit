@@ -30,6 +30,12 @@ class DetailVC: UIViewController{
             descriptLabel.text = passedDescription
         }
         
+        if let passedImageDir = imageDir {
+            
+            imageLabel.image = UIImage(named: passedImageDir)
+        }
+        
+        
         
     }
     
