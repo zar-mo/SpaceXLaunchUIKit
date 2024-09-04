@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -25,6 +26,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         customCell.name.text = projects[indexPath.row].name
         customCell.descript.text = projects[indexPath.row].description
         customCell.status.text = projects[indexPath.row].status.rawValue
+        customCell.time.text = formatDateToString(date: projects[indexPath.row].launchTime, timeZoneIdentifier: "America/Chicago")
 
         return customCell
     }
@@ -37,6 +39,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             detailVC.descript = projects[indexPath.row].description
             detailVC.name = projects[indexPath.row].name
             detailVC.imageDir = projects[indexPath.row].imageDir
+            
             
             navigationController?.pushViewController(detailVC, animated: true)
         }
@@ -85,6 +88,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let defaultDate = Date()
         return calendar.date(from: dateComponents) ?? defaultDate
     }
+    
+    
+
+
+    func formatDateToString(date: Date, timeZoneIdentifier: String) -> String {
+        // Create a DateFormatter
+        let dateFormatter = DateFormatter()
+        
+        // Set the desired date and time format
+        dateFormatter.dateFormat = "MMMM d, yyyy, h:mm:ss a"
+        
+        // Set the time zone
+        if let timeZone = TimeZone(identifier: timeZoneIdentifier) {
+            dateFormatter.timeZone = timeZone
+            
+            // Format the date
+            let formattedDate = dateFormatter.string(from: date)
+            
+            // Get time zone abbreviation
+            let timeZoneAbbreviation = timeZone.abbreviation() ?? "Unknown Time Zone"
+            
+            return "\(formattedDate) \(timeZoneAbbreviation)"
+        } else {
+            // Handle the case where the time zone identifier is invalid
+            return "Invalid Time Zone Identifier"
+        }
+    }
+
+
 
 
 
